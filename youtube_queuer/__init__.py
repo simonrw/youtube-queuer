@@ -13,13 +13,15 @@ def db_init():
     import os
     import sqlite3
 
-    text = '''
+    statements = ['''
     CREATE TABLE yt_queue (
         id integer primary key,
         arguments string not null,
         added timestamp not null default current_timestamp
         );
-    '''
+        ''', '''INSERT INTO yt_queue (arguments) VALUES (
+            'https://www.youtube.com/watch?v=3-HMkXmJLO0');
+    ''']
 
     try:
         os.remove('db.db')
@@ -28,7 +30,8 @@ def db_init():
 
     with sqlite3.connect('db.db') as conn:
         cur = conn.cursor()
-        cur.execute(text)
+        for stmt in statements:
+            cur.execute(stmt)
 
 
     
