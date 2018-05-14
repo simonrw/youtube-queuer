@@ -1,20 +1,13 @@
-from aiohttp import web
-import aioodbc
+from flask import Flask, jsonify
 
 
-routes = web.RouteTableDef()
+app = Flask('ytld')
 
 
-class WebHandler(object):
-    def __init__(self):
-        pass
-
-    def worker_next(self, request):
-        return web.Response(text='Hello world')
+@app.route('/worker/next')
+def next():
+    return jsonify({})
 
 
 def main(args):
-    app = web.Application()
-    handler = WebHandler()
-    app.add_routes([web.get('/worker/next', handler.worker_next)])
-    web.run_app(app, host=args.host, port=args.port)
+    app.run(debug=True, port=args.port, host=args.host)
