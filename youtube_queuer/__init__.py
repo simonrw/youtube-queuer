@@ -8,3 +8,28 @@ def ytld_main():
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
     ytld.main(parser.parse_args())
 
+
+def db_init():
+    import os
+    import sqlite3
+
+    text = '''
+    CREATE TABLE yt_queue (
+        id integer primary key,
+        arguments string not null,
+        added timestamp not null default current_timestamp
+        );
+    '''
+
+    try:
+        os.remove('db.db')
+    except FileNotFoundError:
+        pass
+
+    with sqlite3.connect('db.db') as conn:
+        cur = conn.cursor()
+        cur.execute(text)
+
+
+    
+
