@@ -29,3 +29,17 @@ Stopping download for "Factorio: Entry Level to Megabase Ep 40: ROBOT FEEDING FR
 * `ytld` webserver handling communication
 * `sqlite3` database handling state
 * Communication over HTTP/JSON
+
+### Request cycle
+
+#### Workers
+
+Workers request new data from `ytld` by accessing the url:
+`GET /worker/next`. This returns the correct arguments for the next command.
+
+
+#### CLI
+
+The CLI inserts a new set of arguments with:
+
+`POST /cli/new` and the body contains the required info
