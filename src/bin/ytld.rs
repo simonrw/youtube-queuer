@@ -5,8 +5,8 @@ extern crate hyper;
 extern crate youtube_queuer as yt;
 
 use futures::future::Future;
-use hyper::header::ContentLength;
 use hyper::server::{Http, Request, Response, Service};
+use hyper::{Method, StatusCode};
 use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
@@ -28,13 +28,19 @@ impl Service for Ytld {
 
     type Future = Box<Future<Item = Self::Response, Error = Self::Error>>;
 
-    fn call(&self, _req: Request) -> Self::Future {
-        println!("Got request");
-        Box::new(futures::future::ok(
-            Response::new()
-                .with_header(ContentLength(PHRASE.len() as _))
-                .with_body(PHRASE),
-        ))
+    fn call(&self, req: Request) -> Self::Future {
+        let mut response = Response::new();
+
+        match (req.method(), req.path()) {
+            (Method::Get, "/") => {
+                response.set_body(PHRASE);
+            }
+            _ => {
+                response.set_status(StatusCode::NotFound);
+            }
+        }
+
+        Box::new(futures::future::ok(response))
     }
 }
 
