@@ -11,6 +11,7 @@ setup(
             'console_scripts': [
                 'ytld=youtube_queuer:ytld_main',
                 'yt-init=youtube_queuer:db_init',
+                'ytl=youtube_queuer:ytl_main',
                 ],
             },
         )

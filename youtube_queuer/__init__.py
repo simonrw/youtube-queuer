@@ -1,5 +1,6 @@
 import argparse
 import youtube_queuer.ytld
+import youtube_queuer.ytl
 
 
 def ytld_main():
@@ -7,6 +8,21 @@ def ytld_main():
     parser.add_argument('-p', '--port', required=False, default=1536)
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
     ytld.main(parser.parse_args())
+
+
+def ytl_main():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers()
+
+    parser_add = subparsers.add_parser('add')
+    parser_add.add_argument('-a', '--args', required=True)
+    parser_add.add_argument('-o', '--output-dir', required=True)
+
+    parser_list = subparsers.add_parser('list')
+
+    parser_stop = subparsers.add_parser('stop')
+    parser_stop.add_argument('id')
+    ytl.main(parser.parse_args())
 
 
 def db_init():
@@ -32,7 +48,3 @@ def db_init():
         cur = conn.cursor()
         for stmt in statements:
             cur.execute(stmt)
-
-
-    
-
