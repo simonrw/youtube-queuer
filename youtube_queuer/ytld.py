@@ -31,10 +31,10 @@ def next():
 def list_queued():
     with sqlite3.connect('db.db') as c:
         cur = c.cursor()
-        cur.execute('''select arguments from yt_queue
+        cur.execute('''select title, arguments from yt_queue
         order by added desc''')
         rows = cur.fetchall()
-        return jsonify([row[0] for row in rows])
+        return jsonify([{'title': row[0], 'args': row[1]} for row in rows])
 
 
 def main(args):

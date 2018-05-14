@@ -25,7 +25,7 @@ def ytl_list(args):
         print('No queued items found')
 
     for i, item in enumerate(content):
-        print('{} "{}"'.format(i + 1, item))
+        print('{} "{}"'.format(i + 1, item['title']))
 
 
 def ytl_stop(args):

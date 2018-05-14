@@ -33,10 +33,12 @@ def db_init():
     statements = ['''
     CREATE TABLE yt_queue (
         id integer primary key,
+        title string not null,
         arguments string not null,
         added timestamp not null default current_timestamp
         );
-        ''', '''INSERT INTO yt_queue (arguments) VALUES (
+        ''', '''INSERT INTO yt_queue (title, arguments) VALUES (
+            'Nerd³ Recommends Complex Control - An Insane GTA V Mod',
             'https://www.youtube.com/watch?v=3-HMkXmJLO0');
     ''']
 
