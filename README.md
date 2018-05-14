@@ -26,5 +26,6 @@ Stopping download for "Factorio: Entry Level to Megabase Ep 40: ROBOT FEEDING FR
 
 * `ytl` binary with CLI
 * `ytl-worker` binary which performs actual download
+* `ytld` webserver handling communication
 * `sqlite3` database handling state
 * Communication over HTTP/JSON
