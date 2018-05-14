@@ -1,15 +1,20 @@
 from aiohttp import web
+import aioodbc
 
 
 routes = web.RouteTableDef()
 
 
-@routes.get('/worker/next')
-async def worker_next(request):
-    return web.Response(text='Hello world')
+class WebHandler(object):
+    def __init__(self):
+        pass
+
+    def worker_next(self, request):
+        return web.Response(text='Hello world')
 
 
 def main(args):
     app = web.Application()
-    app.add_routes(routes)
+    handler = WebHandler()
+    app.add_routes([web.get('/worker/next', handler.worker_next)])
     web.run_app(app, host=args.host, port=args.port)
