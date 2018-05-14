@@ -5,11 +5,11 @@ Download lots of videos using `youtube-dl`, but allow queueing them up.
 ## Usage
 
 ```sh
-$ ytl add -a "'https://www.youtube.com/watch?v=mxlpQMJt8XA&list=PL4o6UvJIdPNooxA4WQskzhF0_qe5GTMED' --playlist-start 41"
+$ ytl add -a "'https://www.youtube.com/watch?v=mxlpQMJt8XA&list=PL4o6UvJIdPNooxA4WQskzhF0_qe5GTMED' --playlist-start 41" -o /tmp
 ```
 
 ```sh
-$ ytl add 'https://www.youtube.com/watch?v=atoqchvXkSU'
+$ ytl add 'https://www.youtube.com/watch?v=atoqchvXkSU' -o /tmp
 ```
 
 ```sh
