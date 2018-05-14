@@ -21,3 +21,10 @@ $ ytl list
 $ ytl stop 1
 Stopping download for "Factorio: Entry Level to Megabase Ep 40: ROBOT FEEDING FRENZY - Tutorial Series Gameplay"
 ```
+
+## Implementation
+
+* `ytl` binary with CLI
+* `ytl-worker` binary which performs actual download
+* `sqlite3` database handling state
+* Communication over HTTP/JSON
