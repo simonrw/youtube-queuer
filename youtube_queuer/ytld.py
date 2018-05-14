@@ -27,5 +27,15 @@ def next():
         return jsonify(args)
 
 
+@app.route('/cli/list')
+def list_queued():
+    with sqlite3.connect('db.db') as c:
+        cur = c.cursor()
+        cur.execute('''select arguments from yt_queue
+        order by added desc''')
+        rows = cur.fetchall()
+        return jsonify([row[0] for row in rows])
+
+
 def main(args):
     app.run(debug=True, port=args.port, host=args.host)

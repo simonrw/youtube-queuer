@@ -12,7 +12,7 @@ def ytld_main():
 
 def ytl_main():
     parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers()
+    subparsers = parser.add_subparsers(dest='cmd')
 
     parser_add = subparsers.add_parser('add')
     parser_add.add_argument('-a', '--args', required=True)
@@ -22,6 +22,7 @@ def ytl_main():
 
     parser_stop = subparsers.add_parser('stop')
     parser_stop.add_argument('id')
+
     ytl.main(parser.parse_args())
 
 
