@@ -2,7 +2,7 @@
 Description=Youtube queuer service
 
 [Service]
-ExecStart=/usr/local/bin/ytld --host 0.0.0.0 --port 1536
+ExecStart=/usr/local/bin/ytqd --host 0.0.0.0 --port 1536
 WorkingDirectory=/tmp
 Restart=always
 

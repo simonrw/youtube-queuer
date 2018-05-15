@@ -8,7 +8,7 @@ import youtube_queuer.youtube_download as yt
 from youtube_queuer.logs import create_logger
 
 
-logger = create_logger('ytl-worker')
+logger = create_logger('ytq-worker')
 
 
 @contextmanager

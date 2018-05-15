@@ -10,9 +10,9 @@ setup(
         packages=find_packages(),
         entry_points={
             'console_scripts': [
-                'ytld=youtube_queuer:ytld_main',
-                'ytl=youtube_queuer:ytl_main',
-                'ytl-worker=youtube_queuer:ytl_worker_main',
+                'ytqd=youtube_queuer:ytqd_main',
+                'ytq=youtube_queuer:ytq_main',
+                'ytq-worker=youtube_queuer:ytq_worker_main',
                 ],
             },
         install_requires=[

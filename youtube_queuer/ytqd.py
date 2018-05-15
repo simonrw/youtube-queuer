@@ -14,7 +14,7 @@ DB_NAME = os.path.realpath(
         )
 
 
-app = Flask('ytld')
+app = Flask('ytqd')
 
 
 @app.route('/worker/next')
