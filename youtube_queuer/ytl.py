@@ -15,7 +15,7 @@ def main(args):
 
 def ytl_add(args):
     cmd = args.args
-    output_dir = os.path.realpath(args.output_dir)
+    output_dir = args.output_dir
 
     data = {
             'args': cmd,

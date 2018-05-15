@@ -1,6 +1,7 @@
 import argparse
 import youtube_queuer.ytld
 import youtube_queuer.ytl
+import youtube_queuer.ytl_worker
 
 
 def ytld_main():
@@ -24,6 +25,11 @@ def ytl_main():
     parser_delete.add_argument('id', type=int)
 
     ytl.main(parser.parse_args())
+
+
+def ytl_worker_main():
+    parser = argparse.ArgumentParser()
+    ytl_worker.main(parser.parse_args())
 
 
 def db_init():
