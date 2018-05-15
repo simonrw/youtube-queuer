@@ -1,11 +1,24 @@
 import argparse
 import time
 import requests
+from contextlib import contextmanager
+import os
 import youtube_queuer.youtube_download as yt
 from youtube_queuer.logs import create_logger
 
 
 logger = create_logger('ytl-worker')
+
+
+@contextmanager
+def change_dir(new_cwd):
+    old_cwd = os.getcwd()
+    try:
+        logger.debug('Changing directory to %s', new_cwd)
+        os.chdir(new_cwd)
+        yield
+    finally:
+        os.chdir(old_cwd)
 
 
 def main(args):
@@ -27,7 +40,7 @@ def loop_step(host, port):
     if info is None:
         return
 
-    download(url=info['url'])
+    download(url=info['url'], output_dir=info['output_dir'])
     mark_as_complete(host=host, port=port, video_id=info['video_id'])
 
 
@@ -46,9 +59,15 @@ def fetch_next(host, port):
         raise RuntimeError('An error occurred')
 
 
-def download(url):
-    logger.info('Downloading using url %s', url)
-    yt.download(url)
+def download(url, output_dir):
+    output_dir = os.path.realpath(output_dir)
+
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+
+    with change_dir(output_dir):
+        logger.info('Downloading using url %s', url)
+        yt.download(url)
 
 
 def mark_as_complete(host, port, video_id):

@@ -16,8 +16,8 @@ def next():
     with sqlite3.connect('db.db') as c:
         try:
             cur = c.cursor()
-            cur.execute('''select id, url from yt_queue
-            order by added desc
+            cur.execute('''select id, url, output_dir from yt_queue
+            order by added asc
             limit 1''')
             row = cur.fetchone()
             if row:
@@ -26,6 +26,7 @@ def next():
                         'status_code': 0,
                         'video_id': row[0],
                         'url': row[1],
+                        'output_dir': row[2],
                         }
             else:
                 args = {
