@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import sqlite3
 import subprocess as sp
 import re
@@ -48,7 +48,6 @@ def mark_as_complete():
     return jsonify({'status': 'ok'})
 
 
-
 @app.route('/cli/list')
 def list_queued():
     entries = list_entries()
@@ -70,6 +69,7 @@ def add_item():
 
     return jsonify({'status': 'ok'})
 
+
 @app.route('/cli/delete', methods=['DELETE'])
 def delete_item():
     req = request.json
@@ -79,6 +79,11 @@ def delete_item():
 
     return jsonify({'status': 'ok'})
 
+
+@app.route('/')
+def index():
+    items = list_entries()
+    return render_template('index.html', items=items)
 
 
 def delete_queued_item(video_id):
