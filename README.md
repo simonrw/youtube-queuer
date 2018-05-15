@@ -5,7 +5,7 @@ Download lots of videos using `youtube-dl`, but allow queueing them up.
 ## Usage
 
 ```sh
-$ ytq add -a "'https://www.youtube.com/watch?v=mxlpQMJt8XA&list=PL4o6UvJIdPNooxA4WQskzhF0_qe5GTMED' --playlist-start 41" -o /tmp
+$ ytq add 'https://www.youtube.com/watch?v=mxlpQMJt8XA' -o /tmp
 ```
 
 ```sh
@@ -18,7 +18,7 @@ $ ytq list
 ```
 
 ```sh
-$ ytq stop 1
+$ ytq delete 1
 Stopping download for "Factorio: Entry Level to Megabase Ep 40: ROBOT FEEDING FRENZY - Tutorial Series Gameplay"
 ```
 
@@ -36,7 +36,6 @@ Stopping download for "Factorio: Entry Level to Megabase Ep 40: ROBOT FEEDING FR
 
 Workers request new data from `ytqd` by accessing the url:
 `GET /worker/next`. This returns the correct arguments for the next command.
-
 
 #### CLI
 
