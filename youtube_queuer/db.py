@@ -1,10 +1,16 @@
 import os
 import sqlite3
+from youtube_queuer.logs import create_logger
+
+
+logger = create_logger('youtube_queuer.db')
+
 
 def db_init(filename):
 
-    statements = ['''
-    CREATE TABLE yt_queue (
+    logger.info('Initialising database')
+
+    statements = ['''CREATE TABLE yt_queue (
         id integer primary key,
         title string not null,
         url string not null unique,
@@ -19,10 +25,12 @@ def db_init(filename):
     try:
         os.remove(filename)
     except OSError:
+        logger.debug('No database file to remove')
         pass
 
     with sqlite3.connect(filename) as conn:
         cur = conn.cursor()
         for stmt in statements:
+            logger.debug('Executing statement:\n%s', stmt)
             cur.execute(stmt)
 
