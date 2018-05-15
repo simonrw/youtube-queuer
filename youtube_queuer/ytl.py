@@ -39,4 +39,9 @@ def ytl_list(args):
 
 
 def ytl_delete(args):
-    pass
+    video_id = args.id
+    data = {
+            'video_id': video_id,
+            }
+    r = requests.delete('http://localhost:1536/cli/delete', json=data)
+    r.raise_for_status()

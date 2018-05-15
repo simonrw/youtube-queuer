@@ -55,6 +55,18 @@ def add_item():
     return 'ok'
 
 
+@app.route('/cli/delete', methods=['DELETE'])
+def delete_item():
+    req = request.json
+    video_id = req['video_id']
+
+    with sqlite3.connect('db.db') as c:
+        cur = c.cursor()
+        cur.execute('''delete from yt_queue where id = ?''', (video_id,))
+
+    return 'ok'
+
+
 def extract_url(args):
     words = args.split()
     for word in words:

@@ -20,8 +20,8 @@ def ytl_main():
 
     parser_list = subparsers.add_parser('list')
 
-    parser_stop = subparsers.add_parser('stop')
-    parser_stop.add_argument('id')
+    parser_delete = subparsers.add_parser('delete')
+    parser_delete.add_argument('id', type=int)
 
     ytl.main(parser.parse_args())
 
