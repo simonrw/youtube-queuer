@@ -14,4 +14,9 @@ setup(
                 'ytl-worker=youtube_queuer:ytl_worker_main',
                 ],
             },
+        install_requires=[
+            'flask',
+            'requests',
+            'youtube-dl',
+            ],
         )
