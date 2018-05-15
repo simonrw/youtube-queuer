@@ -14,23 +14,38 @@ app = Flask('ytld')
 @app.route('/worker/next')
 def next():
     with sqlite3.connect('db.db') as c:
-        cur = c.cursor()
-        cur.execute('''select url from yt_queue
-        order by added desc
-        limit 1''')
-        row = cur.fetchone()
-        if row:
+        try:
+            cur = c.cursor()
+            cur.execute('''select id, url from yt_queue
+            order by added desc
+            limit 1''')
+            row = cur.fetchone()
+            if row:
+                args = {
+                        'status': 'ok',
+                        'status_code': 0,
+                        'video_id': row[0],
+                        'url': row[1],
+                        }
+            else:
+                args = {
+                        'status': 'no-results',
+                        'status_code': 1,
+                        }
+        except sqlite3.Error:
             args = {
-                    'status': 'ok',
-                    'status_code': 0,
-                    'url': row[0],
-                    }
-        else:
-            args = {
-                    'status': 'no-results',
-                    'status_code': 1,
+                    'status': 'database-error',
+                    'status_code': 2,
                     }
         return jsonify(args)
+
+
+@app.route('/worker/complete', methods=['POST'])
+def mark_as_complete():
+    video_id = request.json['video_id']
+    delete_queued_item(video_id)
+    return jsonify({'status': 'ok'})
+
 
 
 @app.route('/cli/list')
@@ -55,19 +70,24 @@ def add_item():
                     (title, url, req['output_dir']))
         except sqlite3.IntegrityError:
             pass
-    return 'ok'
 
+    return jsonify({'status': 'ok'})
 
 @app.route('/cli/delete', methods=['DELETE'])
 def delete_item():
     req = request.json
     video_id = req['video_id']
 
+    delete_queued_item(video_id)
+
+    return jsonify({'status': 'ok'})
+
+
+
+def delete_queued_item(video_id):
     with sqlite3.connect('db.db') as c:
         cur = c.cursor()
         cur.execute('''delete from yt_queue where id = ?''', (video_id,))
-
-    return 'ok'
 
 
 def extract_url(args):
