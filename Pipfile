@@ -10,6 +10,7 @@ youtube-dl = "*"
 
 [dev-packages]
 pytest = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.6"
