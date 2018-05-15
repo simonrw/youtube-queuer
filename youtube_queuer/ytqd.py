@@ -1,5 +1,5 @@
 from __future__ import print_function, division, absolute_import
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect
 import sqlite3
 import os
 import re
@@ -92,6 +92,11 @@ def delete_item():
 
 @app.route('/')
 def index():
+    return redirect('/web')
+
+
+@app.route('/web')
+def web_index():
     items = list_entries()
     return render_template('index.html', items=items)
 
