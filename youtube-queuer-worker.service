@@ -1,0 +1,10 @@
+[Unit]
+Description=Youtube queuer worker service
+
+[Service]
+ExecStart=/usr/local/bin/ytl-worker --host 127.0.0.1 --port 1536
+WorkingDirectory=/tmp
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
