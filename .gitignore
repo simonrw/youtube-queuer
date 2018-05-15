@@ -4,3 +4,5 @@
 *.pyc
 *.db
 .pytest_cache/
+*.webm
+*.webm.part
