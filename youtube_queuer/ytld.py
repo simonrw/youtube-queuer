@@ -1,12 +1,17 @@
 from __future__ import print_function, division, absolute_import
 from flask import Flask, jsonify, request, render_template
 import sqlite3
-import subprocess as sp
+import os
 import re
 import youtube_queuer.youtube_download as yt
+from youtube_queuer.db import db_init
 
 
 URL_MATCHER = re.compile(r'https?://.*\.?youtube\.com[^\'"]+')
+DB_NAME = os.path.realpath(
+        os.path.join(
+            os.getcwd(), 'db.db')
+        )
 
 
 app = Flask('ytld')
@@ -116,4 +121,7 @@ def list_entries():
     return rows
 
 def main(args):
-    app.run(debug=True, port=args.port, host=args.host)
+    if not os.path.isfile(DB_NAME):
+        db_init(DB_NAME)
+
+    app.run(debug=args.debug, port=args.port, host=args.host)

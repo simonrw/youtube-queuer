@@ -3,12 +3,14 @@ import argparse
 import youtube_queuer.ytld
 import youtube_queuer.ytl
 import youtube_queuer.ytl_worker
+from youtube_queuer.db import db_init
 
 
 def ytld_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', required=False, default=1536, type=int)
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+    parser.add_argument('--debug', required=False, default=False, action='store_true')
     ytld.main(parser.parse_args())
 
 
@@ -37,31 +39,3 @@ def ytl_worker_main():
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
     parser.add_argument('-s', '--sleep-time', required=False, default=10, type=int)
     ytl_worker.main(parser.parse_args())
-
-
-def db_init():
-    import os
-    import sqlite3
-
-    statements = ['''
-    CREATE TABLE yt_queue (
-        id integer primary key,
-        title string not null,
-        url string not null unique,
-        output_dir string not null,
-        added timestamp not null default current_timestamp
-        );
-        ''', '''INSERT INTO yt_queue (title, url, output_dir) VALUES (
-            'SOMEBODY TOUCHA MY SPAGHET',
-            'https://www.youtube.com/watch?v=cE1FrqheQNI', '/tmp');
-    ''']
-
-    try:
-        os.remove('db.db')
-    except FileNotFoundError:
-        pass
-
-    with sqlite3.connect('db.db') as conn:
-        cur = conn.cursor()
-        for stmt in statements:
-            cur.execute(stmt)

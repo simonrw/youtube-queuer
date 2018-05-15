@@ -1,0 +1,10 @@
+[Unit]
+Description=Youtube queuer service
+
+[Service]
+ExecStart=/usr/local/bin/ytld --host 0.0.0.0 --port 1536
+WorkingDirectory=/tmp
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
