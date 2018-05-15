@@ -51,12 +51,8 @@ def mark_as_complete():
 
 @app.route('/cli/list')
 def list_queued():
-    with sqlite3.connect('db.db') as c:
-        cur = c.cursor()
-        cur.execute('''select id, title, added from yt_queue
-        order by added asc''')
-        rows = cur.fetchall()
-        return jsonify([{'id': row[0], 'title': row[1], 'added': row[2]} for row in rows])
+    entries = list_entries()
+    return jsonify([{'id': entry[0], 'title': entry[1], 'added': entry[2]} for entry in entries])
 
 
 @app.route('/cli/add', methods=['POST'])
@@ -104,6 +100,14 @@ def find_title(url):
     return yt.find_title(url)
 
 
+def list_entries():
+    with sqlite3.connect('db.db') as c:
+        cur = c.cursor()
+        cur.execute('''select id, title, added from yt_queue
+        order by added asc''')
+        rows = cur.fetchall()
+
+    return rows
 
 def main(args):
     app.run(debug=True, port=args.port, host=args.host)
