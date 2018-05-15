@@ -7,8 +7,8 @@ def main(args):
         ytl_add(args)
     elif args.cmd == 'list':
         ytl_list(args)
-    elif args.cmd == 'stop':
-        ytl_stop(args)
+    elif args.cmd == 'delete':
+        ytl_delete(args)
     else:
         raise NotImplementedError('Command not implemented: {}'.format(args.cmd))
 
@@ -38,5 +38,5 @@ def ytl_list(args):
         print('{} "{}" {}'.format(item['id'], item['title'], item['added']))
 
 
-def ytl_stop(args):
+def ytl_delete(args):
     pass
