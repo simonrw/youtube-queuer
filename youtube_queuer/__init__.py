@@ -6,7 +6,7 @@ import youtube_queuer.ytl_worker
 
 def ytld_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', required=False, default=1536)
+    parser.add_argument('-p', '--port', required=False, default=1536, type=int)
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
     ytld.main(parser.parse_args())
 
@@ -16,7 +16,7 @@ def ytl_main():
     subparsers = parser.add_subparsers(dest='cmd')
 
     parser_add = subparsers.add_parser('add')
-    parser_add.add_argument('-a', '--args', required=True)
+    parser_add.add_argument('url')
     parser_add.add_argument('-o', '--output-dir', required=True)
 
     parser_list = subparsers.add_parser('list')
@@ -40,11 +40,11 @@ def db_init():
     CREATE TABLE yt_queue (
         id integer primary key,
         title string not null,
-        arguments string not null,
+        url string not null unique,
         output_dir string not null,
         added timestamp not null default current_timestamp
         );
-        ''', '''INSERT INTO yt_queue (title, arguments, output_dir) VALUES (
+        ''', '''INSERT INTO yt_queue (title, url, output_dir) VALUES (
             'Nerd³ Recommends Complex Control - An Insane GTA V Mod',
             'https://www.youtube.com/watch?v=3-HMkXmJLO0', '/tmp');
     ''']

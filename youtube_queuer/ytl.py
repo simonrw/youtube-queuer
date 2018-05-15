@@ -14,12 +14,9 @@ def main(args):
 
 
 def ytl_add(args):
-    cmd = args.args
-    output_dir = args.output_dir
-
     data = {
-            'args': cmd,
-            'output_dir': output_dir,
+            'url': args.url,
+            'output_dir': args.output_dir
             }
     r = requests.post('http://localhost:1536/cli/add', json=data)
     r.raise_for_status()

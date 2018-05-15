@@ -46,12 +46,15 @@ def list_queued():
 @app.route('/cli/add', methods=['POST'])
 def add_item():
     req = request.json
-    url = extract_url(req['args'])
+    url = req['url']
     title = find_title(url)
     with sqlite3.connect('db.db') as c:
         cur = c.cursor()
-        cur.execute('''insert into yt_queue (title, arguments, output_dir) values
-        (?, ?, ?)''', (title, req['args'], req['output_dir']))
+        try:
+            cur.execute('''insert into yt_queue (title, url, output_dir) values (?, ?, ?)''',
+                    (title, url, req['output_dir']))
+        except sqlite3.IntegrityError:
+            pass
     return 'ok'
 
 
