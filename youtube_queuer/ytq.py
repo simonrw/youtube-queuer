@@ -1,13 +1,14 @@
 from __future__ import print_function, division, absolute_import
 import requests
 import os
-from youtube_queuer.logs import create_logger
+from youtube_queuer.logs import create_logger, set_verbosity
 
 
 logger = create_logger('youtube_queuer.ytq')
 
 
 def main(args):
+    set_verbosity(logger, args.verbose)
     if args.cmd == 'add':
         ytq_add(args)
     elif args.cmd == 'list':

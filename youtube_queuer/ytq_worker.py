@@ -5,7 +5,7 @@ import requests
 from contextlib import contextmanager
 import os
 import youtube_queuer.youtube_download as yt
-from youtube_queuer.logs import create_logger
+from youtube_queuer.logs import create_logger, set_verbosity
 
 
 logger = create_logger('ytq-worker')
@@ -23,6 +23,7 @@ def change_dir(new_cwd):
 
 
 def main(args):
+    set_verbosity(logger, args.verbose)
     while True:
         try:
             loop_step(host=args.host, port=args.port)

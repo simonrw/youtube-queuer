@@ -6,18 +6,22 @@ import youtube_queuer.ytq_worker
 from youtube_queuer.db import db_init
 
 
-def ytqd_main():
-    parser = argparse.ArgumentParser()
+def add_default_arguments(parser):
     parser.add_argument('-p', '--port', required=False, default=1536, type=int)
     parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+    parser.add_argument('-v', '--verbose', required=False, action='count')
+
+
+def ytqd_main():
+    parser = argparse.ArgumentParser()
     parser.add_argument('--debug', required=False, default=False, action='store_true')
+    add_default_arguments(parser)
     ytqd.main(parser.parse_args())
 
 
 def ytq_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', required=False, default=1536, type=int)
-    parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+    add_default_arguments(parser)
 
     subparsers = parser.add_subparsers(dest='cmd')
 
@@ -35,7 +39,6 @@ def ytq_main():
 
 def ytq_worker_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', required=False, default=1536, type=int)
-    parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+    add_default_arguments(parser)
     parser.add_argument('-s', '--sleep-time', required=False, default=10, type=int)
     ytq_worker.main(parser.parse_args())

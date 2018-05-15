@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from youtube_queuer.logs import create_logger
+from youtube_queuer.logs import create_logger, set_verbosity
 
 
 logger = create_logger('youtube_queuer.db')
