@@ -35,11 +35,12 @@ def db_init():
         id integer primary key,
         title string not null,
         arguments string not null,
+        output_dir string not null,
         added timestamp not null default current_timestamp
         );
-        ''', '''INSERT INTO yt_queue (title, arguments) VALUES (
+        ''', '''INSERT INTO yt_queue (title, arguments, output_dir) VALUES (
             'Nerd³ Recommends Complex Control - An Insane GTA V Mod',
-            'https://www.youtube.com/watch?v=3-HMkXmJLO0');
+            'https://www.youtube.com/watch?v=3-HMkXmJLO0', '/tmp');
     ''']
 
     try:
