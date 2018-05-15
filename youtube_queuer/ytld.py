@@ -1,3 +1,4 @@
+from __future__ import print_function, division, absolute_import
 from flask import Flask, jsonify, request, render_template
 import sqlite3
 import subprocess as sp
