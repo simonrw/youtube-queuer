@@ -14,6 +14,9 @@ def ytld_main():
 
 def ytl_main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--port', required=False, default=1536, type=int)
+    parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+
     subparsers = parser.add_subparsers(dest='cmd')
 
     parser_add = subparsers.add_parser('add')

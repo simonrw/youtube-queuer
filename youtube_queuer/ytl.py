@@ -14,18 +14,25 @@ def main(args):
         raise NotImplementedError('Command not implemented: {}'.format(args.cmd))
 
 
+def get_root_url(args):
+    return 'http://{host}:{port}'.format(
+            host=args.host, port=args.port)
+
+
 def ytl_add(args):
     data = {
             'url': args.url,
             'output_dir': args.output_dir
             }
-    r = requests.post('http://localhost:1536/cli/add', json=data)
+    root_url = get_root_url(args)
+    r = requests.post('{}/cli/add'.format(root_url), json=data)
     r.raise_for_status()
     print('Queued')
 
 
 def ytl_list(args):
-    r = requests.get('http://localhost:1536/cli/list')
+    root_url = get_root_url(args)
+    r = requests.get('{}/cli/list'.format(root_url))
     r.raise_for_status()
     content = r.json()
 
@@ -41,5 +48,6 @@ def ytl_delete(args):
     data = {
             'video_id': video_id,
             }
-    r = requests.delete('http://localhost:1536/cli/delete', json=data)
+    root_url = get_root_url(args)
+    r = requests.delete('{}/cli/delete'.format(root_url), json=data)
     r.raise_for_status()
