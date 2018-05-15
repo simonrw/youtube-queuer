@@ -28,6 +28,8 @@ def ytq_main():
     parser_add = subparsers.add_parser('add')
     parser_add.add_argument('url')
     parser_add.add_argument('-o', '--output-dir', required=True)
+    parser_add.add_argument('--start', required=False, type=int)
+    parser_add.add_argument('--end', required=False, type=int)
 
     parser_list = subparsers.add_parser('list')
 

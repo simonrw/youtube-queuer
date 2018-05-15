@@ -22,7 +22,7 @@ def next():
     with sqlite3.connect('db.db') as c:
         try:
             cur = c.cursor()
-            cur.execute('''select id, url, output_dir from yt_queue
+            cur.execute('''select id, url, output_dir, start, end from yt_queue
             order by added asc
             limit 1''')
             row = cur.fetchone()
@@ -33,6 +33,8 @@ def next():
                         'video_id': row[0],
                         'url': row[1],
                         'output_dir': row[2],
+                        'start': row[3],
+                        'end': row[4],
                         }
             else:
                 args = {
@@ -68,8 +70,10 @@ def add_item():
     with sqlite3.connect('db.db') as c:
         cur = c.cursor()
         try:
-            cur.execute('''insert into yt_queue (title, url, output_dir) values (?, ?, ?)''',
-                    (title, url, req['output_dir']))
+            cur.execute('''insert into yt_queue (title, url, output_dir,
+                    start, end) values (?, ?, ?, ?, ?)''',
+                    (title, url, req['output_dir'], req['start'],
+                        req['end']))
         except sqlite3.IntegrityError:
             pass
 

@@ -29,7 +29,9 @@ def ytq_add(args):
     logger.info('Adding video: %s -> %s', args.url, args.output_dir)
     data = {
             'url': args.url,
-            'output_dir': args.output_dir
+            'output_dir': args.output_dir,
+            'start': args.start,
+            'end': args.end,
             }
     root_url = get_root_url(args)
     logger.debug('Sending web request')

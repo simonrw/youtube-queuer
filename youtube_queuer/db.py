@@ -15,6 +15,8 @@ def db_init(filename):
         title string not null,
         url string not null unique,
         output_dir string not null,
+        start integer,
+        end integer,
         added timestamp not null default current_timestamp
         );
         ''', '''INSERT INTO yt_queue (title, url, output_dir) VALUES (

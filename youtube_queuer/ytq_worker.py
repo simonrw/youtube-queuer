@@ -42,7 +42,7 @@ def loop_step(host, port):
     if info is None:
         return
 
-    download(url=info['url'], output_dir=info['output_dir'])
+    download(url=info['url'], output_dir=info['output_dir'], start=info['start'], end=info['end'])
     mark_as_complete(host=host, port=port, video_id=info['video_id'])
 
 
@@ -61,7 +61,7 @@ def fetch_next(host, port):
         raise RuntimeError('An error occurred')
 
 
-def download(url, output_dir):
+def download(url, output_dir, start, end):
     output_dir = os.path.realpath(output_dir)
 
     if not os.path.isdir(output_dir):
@@ -69,7 +69,7 @@ def download(url, output_dir):
 
     with change_dir(output_dir):
         logger.info('Downloading using url %s', url)
-        yt.download(url)
+        yt.download(url, start=start, end=end)
 
 
 def mark_as_complete(host, port, video_id):

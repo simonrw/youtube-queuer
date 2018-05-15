@@ -19,7 +19,14 @@ def find_title(url):
     return info['title']
 
 
-def download(url):
+def download(url, start=None, end=None):
     logger.info('Downloading video from %s', url)
-    with youtube_dl.YoutubeDL({}) as ydl:
+    opts = {}
+    if start is not None:
+        opts['playliststart'] = start
+
+    if end is not None:
+        opts['playlistend'] = end
+
+    with youtube_dl.YoutubeDL(opts) as ydl:
         ydl.download([url])
