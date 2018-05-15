@@ -15,15 +15,15 @@ app = Flask('ytld')
 def next():
     with sqlite3.connect('db.db') as c:
         cur = c.cursor()
-        cur.execute('''select arguments from yt_queue
+        cur.execute('''select url from yt_queue
         order by added desc
         limit 1''')
-        rows = cur.fetchone()
-        if rows:
+        row = cur.fetchone()
+        if row:
             args = {
                     'status': 'ok',
                     'status_code': 0,
-                    'arguments': rows[0],
+                    'url': row[0],
                     }
         else:
             args = {

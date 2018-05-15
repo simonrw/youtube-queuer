@@ -29,6 +29,9 @@ def ytl_main():
 
 def ytl_worker_main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--port', required=False, default=1536, type=int)
+    parser.add_argument('-H', '--host', required=False, default='127.0.0.1')
+    parser.add_argument('-s', '--sleep-time', required=False, default=10, type=int)
     ytl_worker.main(parser.parse_args())
 
 

@@ -10,3 +10,8 @@ def find_title(url):
         info = ydl.extract_info(url, download=False)
 
     return info['title']
+
+
+def download(url):
+    with youtube_dl.YoutubeDL({}) as ydl:
+        ydl.download([url])
